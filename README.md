@@ -1,4 +1,4 @@
-<img width="964" alt="image" src="https://github.com/jongheonleee/todo/assets/87258372/8f938ac0-9f8d-473e-8b4d-9e119dddede9"># todo
+# todo
 
 
 ### 🛠 프로젝트 구상 및 로컬 환경 초기화
