@@ -108,7 +108,7 @@
 
 아키텍처 스타일로서 반복되는 아키텍처 디자인을 의미함 주로 HTTP Method와 URI를 어떤 형식의 요청과 응답을 만들지 결정하는 부분
 <br/>
-https://www.youtube.com/watch?v=RP_f5dMoHFc
+[https://www.youtube.com/watch?v=RP_f5dMoHFc](https://www.youtube.com/watch?v=RP_f5dMoHFc)
 <br/>
 
 - REST 제약 조건
