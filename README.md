@@ -71,11 +71,14 @@
 - Dependency : 프로젝트에서 사용할 라이브러리를 명시하는 곳, Gradle이 이를 보고 Reposity에서 라이브러리를 다운로드 받음
 
 
- #### (6). 레이어드 아키텍처 패턴과 Rest 아키텍처 패턴 그리고 Restful 서비스
+### 2.2 백엔드 서비스 아키텍처
 
- 레이어드 아키텍처 패턴 : 코드를 분리하고 관리하는 패턴, 이에 따라 애플리케이션의 구조를 구축함
- Rest 아키텍처 : 해당 애플리케이션을 이용하는 클라이언트가 어떤 형태의 요청과 응답을 보내고 받는지 설계
- Restful 서비스 : Rest 아키텍처에 따라 서비스가 구현된 형태
+
+#### (6). 레이어드 아키텍처 패턴과 Rest 아키텍처 패턴 그리고 Restful 서비스
+
+레이어드 아키텍처 패턴 : 코드를 분리하고 관리하는 패턴, 이에 따라 애플리케이션의 구조를 구축함
+Rest 아키텍처 : 해당 애플리케이션을 이용하는 클라이언트가 어떤 형태의 요청과 응답을 보내고 받는지 설계
+Restful 서비스 : Rest 아키텍처에 따라 서비스가 구현된 형태
  
 #### (7). 레이어드 아키텍처
 
@@ -121,7 +124,88 @@
   4. 일관적인 인터페이스 : 요청과 응답의 형태가 일관적이어야함
   5. 레이어 시스템 : 여러개의 레이어로 구성된 서버
   6. 코드 온-디멘드(선택사항) : 쿨라가 서버로 코드를 요청, 서버는 이를 실행함
-
+  
 
 #### (10). 컨트롤러 레이어 : 스프링 REST API 컨트롤러
+
+애플리케이션의 요청과 응답을 어떻게 처리할지 결정하는 컨트롤러 레이어
+요청 정보를 통해 그에 상응하는 메서드를 호출함
+
+- @RestController : REST API 를 처리하는 컨트롤러
+- @GetMapping, @PostMapping, @PutMapping, @DeleteMapping : HTTP 메서드 매핑, ()안에 경로 지정
+- @PathVariable : URI의 경로로 넘어오는 파라미터를 변수로 받음
+- @RequestParam : URI에 ?di={id} 와 같은 형식으로 넘어오는 요청 매개변수를 변수로 받을 수 있음
+- @RequestBody : 오브젝트처럼 복잡한 자료형을 받아옴, HTTP Body에 JSON을 자바 객체로 변환하여 받음
+- @ResponseBody : 오브젝트처럼 복잡한 자료형을 리턴할 때 사용, 이때 @RestController = @Controller + @ResponseBody
+- ResponseEntity : HTTP 응답 + 여러 부가 정보(status, header 조작 가능)
+
+#### (11). 서비스 레이어 : 비즈니스 로직
+
+컨트롤러와 퍼시스턴스 사이에서 비즈니스 로직을 수행하는 역할(순수한 자바 코드, 변경 영향 x)
+
+- @Service : 스프링 컴포넌트며 기능적으로 비즈니스 로직을 수행함을 의미
+
+#### (12). 퍼시스턴스 레이어 : 스프링 데이터 JPA
+
+DB에 접근해서 실제 데이터에 접근하는 역할
+
+- JDBC 드라이버 : 자바에서 DB에 연결할 수 있도록 도와주는 라이브러리
+- JPA : 자바에서 DB에 접근, 저장, 관리에 필요한 인터페이스, 이를 구현한 것이 Hibernate
+- 스프링 데이터 JPA : JPA를 더 사용하기 쉽도록 만든 프로젝트
+- ORM : "DB 연결 - SQL 실행 - 결과 반환한 뒤 오브젝트로 변환", 위 작업은 반복작업으로 JPA를 통해 처리함
+
+
+#### (13). TodoEntity.java
+
+ ORM이 엔티티를 보고 어떤 테이블의 어떤 필드에 매핑해야 하는지 알 수 있어야함
+ 또 어떤 키가 기본 키인지 외래 키인지 구분할 수 있어야함
+ 따라서, 엔티티는 그 자체가 테이블을 정의해야함
+
+- 어노테이션 조합 : @Builder, @NoArgsConstructor , @AllArgsConstructor, @Data, @Entity
+- @Entity : 엔티티임을 명시
+- @Table : 테이블 이름을 지정, 예를 들어 @Table(name = "Todo")
+- @Id : 기본키가 될 필드에 지정
+- @GeneratedValue : DB에 데이터 저장할 때마다 자동으로 id값 생성, generator로 어떻게 생성할 지 명시할 수 있음
+- @GenericGenerator : 나만의 Generator를 사용하고 싶을 때 이용함 
+
+
+#### (14). TodoRepository.java
+
+기본적인 CRUD 개능은 JpaRepository<T, ID>에 정의되어 있음 따라서 이 인터페이스를 확장한 인터페이스로 정의해서 사용
+구현체는 스프링 데이터 JPA가 실행 시점에 알아서 생성함
+
+
+### 2.3 서비스 개발 및 실습
+
+#### (1). 로그 어노테이션
+
+디버깅을 위한 로그 설정, sout 형식으로 로그를 남기면 안됨
+
+- @Slf4j : 로그 라이브러리 사용을 명시
+
+
+#### (2). Create Todo 구현
+
+- 퍼시스턴스 구현 : 이미 JpaRepository에 구현되어 있음(save())
+- 서비스 구현 : create() 작성 -> 1. 검증 -> 2. save() -> 3. return findByUserId()
+- 컨트롤러 구현 : createTodo() 작성 -> 1. dto -> entity -> 2. 엔티티 초기 설정 -> 3. create()호출 -> 4. entity -> dtos -> 5. ResponseDTO 생성 및 ResponseEntity 반환
+
+
+#### (3). Retrieve Todo 구현(검색)
+
+- 서비스 구현 : retrieve() 작성 -> 1. findByUserId() 호출
+- 컨트롤러 구현 : retrieveTodoList() 작성 -> 1. 서비스의 retrieve() 호출 -> 2. entities -> dtos -> 3. ResponseDTO 생성 및 ResponseEntity 반환
+
+#### (4). Update Todo 구현
+
+- 퍼시스턴스 구현 : save(), findByUserId() 활용
+- 서비스 구현 : update() 작성 -> 1. 검증 -> 2. 오리지날 데이터 가져옴 -> 3. 업데이트 및 저장 -> 4. retrieve() 호출
+- 컨트롤러 구현 : updateTodo() 작성 -> 1. dto -> entity -> 2. entity 초기 설정 -> 3. update() 호출 -> 4. entities -> dtos -> 5. ResponseDTO 생성 및 ResponseEntity 반환
+
+
+#### (5). Delete Todo 구현
+
+- 퍼시스턴스 구현 : delete(), findByUserId() 활용
+- 서비스 구현 : delete() 작성 -> 1. 검증 -> 2. delete() 호출 밀 예외처리 -> 3. 새 Todo list 리턴(retrieve() 활용)
+- 컨트롤러 구현 : delete() 작성 -> 1. dto -> entity -> 2. entity 초기 설정 -> 3. delete() 호출 -> 4. entitis -> dtos -> 5. ResponseDTO 새성 및 ResponseEntity 반환
 
