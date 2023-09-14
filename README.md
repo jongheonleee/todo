@@ -1,4 +1,4 @@
-# todo
+<img width="964" alt="image" src="https://github.com/jongheonleee/todo/assets/87258372/8f938ac0-9f8d-473e-8b4d-9e119dddede9"># todo
 
 
 ### 🛠 프로젝트 구상 및 로컬 환경 초기화
@@ -108,6 +108,8 @@
 
 아키텍처 스타일로서 반복되는 아키텍처 디자인을 의미함 주로 HTTP Method와 URI를 어떤 형식의 요청과 응답을 만들지 결정하는 부분
 <br/>
+<img width="964" alt="image" src="https://github.com/jongheonleee/todo/assets/87258372/f4ea7d40-4be8-4180-af10-b0256a2c095d">
+
 [https://www.youtube.com/watch?v=RP_f5dMoHFc](https://www.youtube.com/watch?v=RP_f5dMoHFc)
 <br/>
 
