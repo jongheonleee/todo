@@ -209,3 +209,39 @@ DB에 접근해서 실제 데이터에 접근하는 역할
 - 서비스 구현 : delete() 작성 -> 1. 검증 -> 2. delete() 호출 밀 예외처리 -> 3. 새 Todo list 리턴(retrieve() 활용)
 - 컨트롤러 구현 : delete() 작성 -> 1. dto -> entity -> 2. entity 초기 설정 -> 3. delete() 호출 -> 4. entitis -> dtos -> 5. ResponseDTO 새성 및 ResponseEntity 반환
 
+
+## 3. 프론트엔드 개발 
+
+### 3.1 
+
+#### (1). 브라우저의 작동 원리
+
+HTML 파일을 트리 형태로 변환하여 브라우저에 각 노드를 그려줌으로써 시각화된 HTML 파일을 볼 수 있음
+
+![KakaoTalk_Image_2023-09-16-11-47-47_001](https://github.com/jongheonleee/todo/assets/87258372/9f6a04a6-87b4-4ee6-b49a-29c0a9406621)
+<br/>
+![KakaoTalk_Image_2023-09-16-11-47-48_002](https://github.com/jongheonleee/todo/assets/87258372/9995a13f-6128-400a-a6cb-449c17e8e3d7)
+<br/>
+
+
+- 파싱 : 렌더링 진행 전, 전처리 과정. 여기서는 3가지 작업이 진행됨 "HTML -> DOM 트리 변환" -> "리소스 다운로드(CSS -> CSSOM 트리 변환)" -> "js 실행"
+- 렌더링 : "렌더 트리 만듦(DOM 트리 + CSSOM 트리)" -> "레이아웃 정함(트리의 각 노드가 어디에 위치할지 등을 정함)" -> "브라우저 스크린에 렌더 트리의 각 노드를 그림"
+
+
+#### (2). React.js
+
+- SPA : Single Page Application, 새로고침을 하지 않는 이상 새로 로딩안함, 자세히 말하면 js가 동적으로 HTML을 재구성해 만드는 클라이언트 애플리케이션을 의미함(서버가 만드는 것이 아님)
+
+![KakaoTalk_Image_2023-09-16-11-57-15_001](https://github.com/jongheonleee/todo/assets/87258372/6e6f7d3c-6c2f-49da-a12a-93fdeef0e33a)
+<br/>
+
+![KakaoTalk_Image_2023-09-16-11-57-15_002](https://github.com/jongheonleee/todo/assets/87258372/e8b8506d-e3f3-46f5-a357-7aed83c1597e)
+<br/>
+보라색 네모박스는 npm start를 실행했을 때 만들어짐, 그래서 ReactDom.render(HTML 엘리먼트)가 실행되어 html 파일을 시각화해줌 
+<br/>
+
+![KakaoTalk_Image_2023-09-16-12-08-18](https://github.com/jongheonleee/todo/assets/87258372/1dad8cfa-3eb2-4a0e-9f1d-8eeaaa41617f)
+<br/>
+
+- React 컴포넌트 : 렌더링 부분인 HTML과 로직 부분인 자바스크립트를 포함한 JSX를 리턴함, 그래서 해당 컴포넌트를 ReactDom.render()의 매개변수로 전달하면 DOM 트리를 만듦
+   
