@@ -212,7 +212,7 @@ DB에 접근해서 실제 데이터에 접근하는 역할
 
 ## 3. 프론트엔드 개발 
 
-### 3.1 
+### 3.1 프론트엔드 개발 환경
 
 #### (1). 브라우저의 작동 원리
 
@@ -243,5 +243,17 @@ HTML 파일을 트리 형태로 변환하여 브라우저에 각 노드를 그�
 ![KakaoTalk_Image_2023-09-16-12-08-18](https://github.com/jongheonleee/todo/assets/87258372/1dad8cfa-3eb2-4a0e-9f1d-8eeaaa41617f)
 <br/>
 
-- React 컴포넌트 : 렌더링 부분인 HTML과 로직 부분인 자바스크립트를 포함한 JSX를 리턴함, 그래서 해당 컴포넌트를 ReactDom.render()의 매개변수로 전달하면 DOM 트리를 만듦
+- React 컴포넌트 : JSX = HTML(렌더링) + JS(로직), 다른 컴포넌트 사용 가능, ReactDOM.render( 컴포넌트, root) -> DOM 트리
+![image](https://github.com/jongheonleee/todo/assets/87258372/685757d5-54a3-483a-9cc2-d832207d6c65)
+<br/>
+
+### 3.2 프론트엔드 서비스 개발
+
+#### (1). Todo 리스트
+
+- 컴포넌트를 통해 만드려고 하는 기능을 정의 -> App 컴포넌트에 전달 -> ReactDOM.render()에 전달
+- 동적 처리 : useState()를 통해 사용자 상태 추적 -> 변경 -> 재랜더링
+- material-ui를 통해 디자인, 이미 잘 디자인된 컴포넌트
+
+ 
    
