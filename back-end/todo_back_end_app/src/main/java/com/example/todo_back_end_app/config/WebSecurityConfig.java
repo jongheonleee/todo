@@ -15,5 +15,5 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig {
-    // 276 페이지 최신 코드로 변경해야함,
+    // git 
 }
